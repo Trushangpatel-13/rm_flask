@@ -13,14 +13,19 @@ import json
 #HOST="http://127.0.0.1:5000/static/uploads"
 
 #HOST="http://192.168.1.100:5000/static/uploads"
-HOST="http://192.168.0.101:5000/static/uploads"
-UPLOAD_FOLDER = "C:/Users/Administrator/PycharmProjects/Saurer_RM_Flask/static/uploads"
+#HOST="http://192.168.0.101:5000/static/uploads"
+
+HOST="https://saurer-rm-demo.onrender.com/static/uploads"
+#UPLOAD_FOLDER = "C:/Users/Administrator/PycharmProjects/Saurer_RM_Flask/static/uploads"
+
+
 
 obj = user_model()
 auth = auth_model()
 
 app = Flask(__name__)
 CORS(app, resources={r'/*': {'origins': '*'}})
+UPLOAD_FOLDER = os.path.dirname(app.instance_path).replace('\\','/') +"/static/uploads"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['CORS_HEADERS'] = 'Content-Type'
 
@@ -45,7 +50,7 @@ def ibo_post_data_all():
 
 @app.route("/ping")
 def user_ping():
-    ospath = os.path+ "app" + app.instance_path
+    ospath = UPLOAD_FOLDER
     
     return ospath
 
@@ -88,11 +93,13 @@ def delete_file():
     deldir = request.args.get('path')
     #print(deldir)
     index = deldir.index("uploads") + 7
-
+    #print(index)
     path = UPLOAD_FOLDER + deldir[index:]
     #print(path)
-
+    
+    
     if(os.path.exists(path)):
+        
         os.remove(path)
         #print("Deleted")
         return make_response("Deleted Successfully", 200)
