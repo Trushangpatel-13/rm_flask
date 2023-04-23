@@ -45,8 +45,9 @@ def ibo_post_data_all():
 
 @app.route("/ping")
 def user_ping():
-    auth_data = request.form
-    return "Response Ok"
+    ospath = os.path+ "app" + app.instance_path
+    
+    return ospath
 
 @app.route('/image/upload', methods = ['POST'])
 def upload_file():
