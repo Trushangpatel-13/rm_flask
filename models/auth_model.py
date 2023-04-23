@@ -10,7 +10,7 @@ from functools import wraps
 class auth_model():
     
     def __init__(self):
-        self.con = mysql.connector.connect(host=dbconfig['host'],user=dbconfig['username'],password=dbconfig['password'],database=dbconfig['database'])
+        self.con = mysql.connector.connect(host=dbconfig['host'],port=dbconfig['port'],user=dbconfig['username'],password=dbconfig['password'],database=dbconfig['database'])
         self.con.autocommit=True
         self.cur = self.con.cursor(dictionary=True)
         
