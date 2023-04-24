@@ -32,7 +32,6 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 
 @app.route("/user/login",methods=["POST"])
-@cross_origin()
 def user_login():
     auth_data = request.form
     return obj.user_login_model(auth_data['password'], auth_data['employee_id'])
@@ -53,6 +52,10 @@ def user_ping():
     ospath = UPLOAD_FOLDER
     
     return ospath
+
+@app.route("/ping/post",methods=["POST"])
+def user_ping_post():
+    return "Post Response OK"
 
 @app.route('/image/upload', methods = ['POST'])
 def upload_file():
